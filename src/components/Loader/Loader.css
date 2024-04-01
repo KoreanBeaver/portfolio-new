@@ -1,0 +1,50 @@
+.loader {
+  width: fit-content;
+}
+
+.dot {
+	width: 8px;
+	height: 8px;
+	background-color: white;
+	border-radius: 50%;
+	display: inline-block;
+  margin: 0 1px;
+}
+
+/* the dots should animate only after one completes */
+.dot:nth-child(1) {
+	animation: dot 2.5s linear infinite;
+	animation-delay: 0s;
+}
+.dot:nth-child(2) {
+	animation: dot 2.5s linear infinite;
+	animation-delay: 0.3s;
+}
+.dot:nth-child(3) {
+	animation: dot 2.5s linear infinite;
+	animation-delay: 0.6s;
+}
+.dot:nth-child(4) {
+	animation: dot 2.5s linear infinite;
+	animation-delay: 0.9s;
+}
+.dot:nth-child(5) {
+  animation: dot 2.5s linear infinite;
+  animation-delay: 1.2s;
+}
+
+/* Keyframes jumping up and down*/
+@keyframes dot {
+  0% {
+    transform: translateY(0);
+    scale: 1;
+  }
+  5% {
+    transform: translateY(-5px);
+    scale: 1.1;
+  }
+  10% {
+    transform: translateY(0);
+    scale: 1;
+  }
+}
