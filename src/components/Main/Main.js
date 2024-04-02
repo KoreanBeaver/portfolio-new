@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import Intro from "../Intro/Intro";
-import WindowFrame from "../WindowFrame/WindowFrame";
+import Intro from "components/Intro/Intro";
+import WindowFrame from "components/WindowFrame/WindowFrame";
 
 import "./Main.css";
 
