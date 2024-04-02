@@ -1,8 +1,6 @@
 import "./Desktop.css";
-import { useState } from "react";
 
 const Desktop = ({ dimensions }) => {
-	
 	const style = {
 		display: "grid",
 		gridAutoFlow: "column",
@@ -10,17 +8,10 @@ const Desktop = ({ dimensions }) => {
 		gridTemplateRows: `repeat(${dimensions[1]}, 80px)`,
 	};
 
-	const handleClick = (e) => {
-
-	}
-
-	const handleDoubleClick = (e) => {
-
-	}
 
 	return (
 		<div className="desktop-container" style={style}>
-			<div className="temp" id="github" onClick={handleClick} onDoubleClick={handleDoubleClick}>
+			<div className="temp" id="github">
 				<i className="desktop-icon devicon-github-original"></i>
 				<div>
 					<span>Github </span>
