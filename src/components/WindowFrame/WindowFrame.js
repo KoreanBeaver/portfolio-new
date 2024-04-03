@@ -17,6 +17,12 @@ const WindowFrame = () => {
 
 	useEffect(() => {
 		setFiles(f);
+
+		document.addEventListener("keydown", handleKeyPress, false);
+
+		return () => {
+			document.removeEventListener("keydown", handleKeyPress, false);
+		};
 	}, []);
 
 	const handleDesktopSC = (e) => {
@@ -37,22 +43,18 @@ const WindowFrame = () => {
 		}
 	};
 
+	const handleKeyPress = (e) => {
+		return;
+	}
+
 	const handleDesktopClick = useDoubleClick(handleDesktopSC, handleDesktopDC);
-
-	// handles arrow key navigation and enter key selection
-	// const handleKeyPress = (e) => {
-	// 	console.log(e.key);
-	// 	if (!!selected && e.key === "Enter") {
-
-	// 	}
-	// }
 
 	useEffect(() => {
 		setDimensions([Math.floor((width - 40) / 80), Math.floor(height / 80)]);
 	}, [width, height]);
 
 	return (
-		<div className="window-frame-container">
+		<div className="window-frame-container" onKeyDown={handleKeyPress}>
 			<Desktop
 				dimensions={dimensions}
 				handleClick={handleDesktopClick}
