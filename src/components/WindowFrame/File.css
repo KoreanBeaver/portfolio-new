@@ -1,0 +1,27 @@
+.file {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.icon {
+  width: 60px;
+  height: 60px;
+  font-size: 60px;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+}
+
+.selected {
+  background-color: #444444;
+}
+
+.folder {
+  color: #f0ad4e;
+}
+
+.resume {
+  color: #4385f4;
+}
