@@ -17,3 +17,7 @@
   height: 60px;
   font-size: 60px;
 }
+
+.selected {
+  background-color: #444444;
+}

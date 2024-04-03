@@ -1,6 +1,6 @@
 import "./Desktop.css";
 
-const Desktop = ({ dimensions }) => {
+const Desktop = ({ dimensions, handleClick, files, selected }) => {
 	const style = {
 		display: "grid",
 		gridAutoFlow: "column",
@@ -8,17 +8,25 @@ const Desktop = ({ dimensions }) => {
 		gridTemplateRows: `repeat(${dimensions[1]}, 80px)`,
 	};
 
-
 	return (
 		<div className="desktop-container" style={style}>
-			<div className="temp" id="github">
+			{/* temporary fill in items*/}
+			<div
+				className={`temp ${selected === "github" ? "selected" : ""}`}
+				id="github"
+				onClick={handleClick}
+			>
 				<i className="desktop-icon devicon-github-original"></i>
 				<div>
 					<span>Github </span>
 					<i className="fa-solid fa-arrow-up-right-from-square"></i>
 				</div>
 			</div>
-			<div className="temp" id="linkedin">
+			<div
+				className={`temp ${selected === "linkedin" ? "selected" : ""}`}
+				id="linkedin"
+				onClick={handleClick}
+			>
 				<i className="desktop-icon devicon-linkedin-plain"></i>
 				<div>
 					<span>Linkedin </span>

@@ -1,0 +1,16 @@
+{
+	"github": {
+		"name": "Github",
+		"type": "external_link",
+		"url": "https://github.com/brkwok/",
+		"icon": "desktop-icon devicon-github-original",
+		"id": "github"
+	},
+	"linkedin": {
+		"name": "LinkedIn",
+		"type": "external_link",
+		"url": "https://www.linkedin.com/in/br-kwok/",
+		"icon": "desktop-icon devicon-linkedin-plain",
+		"id": "linkedin"
+	}
+}

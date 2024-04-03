@@ -7,17 +7,19 @@ const useDoubleClick = (singleClickCb, doubleClickCb, delay = 250) => {
 		const timer = setTimeout(() => {
 			setClick(0);
 		}, delay);
-		
-		if (click === 1) {
-			singleClickCb();
-		} else if (click === 2) {
-			doubleClickCb();
-		}
 
 		return () => clearTimeout(timer);
-	}, [click, singleClickCb, doubleClickCb, delay]);
+	}, [click, delay, singleClickCb, doubleClickCb]);
 
-  return () => setClick((prev) => prev + 1);
+	return (e) => {
+		setClick((prev) => prev + 1);
+		
+		if (click === 0) {
+			singleClickCb(e);
+		} else if (click === 1) {
+			doubleClickCb(e);
+		}
+	};
 };
 
 export default useDoubleClick;
