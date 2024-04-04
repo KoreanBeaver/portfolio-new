@@ -1,29 +1,29 @@
-{
-	"github": {
+[
+	{
 		"name": "Github",
 		"type": "external_link",
 		"url": "https://github.com/brkwok/",
 		"icon": "desktop-icon devicon-github-original colord",
 		"id": "github"
 	},
-	"linkedin": {
+	{
 		"name": "LinkedIn",
 		"type": "external_link",
 		"url": "https://www.linkedin.com/in/br-kwok/",
 		"icon": "desktop-icon devicon-linkedin-plain colored",
 		"id": "linkedin"
 	},
-	"resume": {
+	{
 		"name": "Resume",
 		"type": "external_link",
 		"url": "Resume.pdf",
 		"icon": "desktop-icon fa-solid fa-file-lines resume",
 		"id": "resume"
 	},
-	"projects": {
+	{
 		"name": "Projects",
 		"type": "folder",
 		"icon": "fa-solid fa-folder folder",
 		"id": "projects"
 	}
-}
+]

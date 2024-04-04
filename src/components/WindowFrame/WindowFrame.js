@@ -12,7 +12,7 @@ import Desktop from "./Desktop";
 const WindowFrame = () => {
 	const [width, height] = useResizeWindow();
 	const [dimensions, setDimensions] = useState([0, 0]);
-	const [files, setFiles] = useState({});
+	const [files, setFiles] = useState([]);
 	const [selected, setSelected] = useState(null);
 
 	useEffect(() => {

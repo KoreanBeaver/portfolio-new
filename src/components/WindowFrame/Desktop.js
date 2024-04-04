@@ -12,7 +12,7 @@ const Desktop = ({ dimensions, handleClick, files, selected }) => {
 
 	return (
 		<div className="desktop-container" style={style}>
-			{Object.values(files).map((file) => {
+			{files.map((file) => {
 				return (
 					<File
 						key={file.id}
