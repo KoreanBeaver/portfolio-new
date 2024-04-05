@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 
-const useDoubleClick = (singleClickCb, doubleClickCb, delay = 250) => {
+export const useDoubleClick = (singleClickCb, doubleClickCb, delay = 250) => {
 	const [click, setClick] = useState(0);
 
 	useEffect(() => {
@@ -21,5 +21,3 @@ const useDoubleClick = (singleClickCb, doubleClickCb, delay = 250) => {
 		}
 	};
 };
-
-export default useDoubleClick;

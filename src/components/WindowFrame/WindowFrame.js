@@ -3,8 +3,8 @@ import f from "assets/resources/files.json";
 
 import { useEffect, useState } from "react";
 import { useSelected } from "hooks/useSelected";
-import useResizeWindow from "hooks/useResizeWindow";
-import useDoubleClick from "hooks/useDoubleClick";
+import { useResizeWindow } from "hooks/useResizeWindow";
+import { useDoubleClick } from "hooks/useDoubleClick";
 
 import Startbar from "./Startbar";
 import Desktop from "./Desktop";
@@ -12,7 +12,7 @@ import Desktop from "./Desktop";
 const WindowFrame = () => {
 	const [width, height] = useResizeWindow();
 	const [dimensions, setDimensions] = useState([0, 0]);
-	const [selected,setSelected, files] = useSelected(f);
+	const [selected, setSelected, files] = useSelected(f);
 
 	const handleDesktopSC = (e) => {
 		setSelected(e.currentTarget.id);
