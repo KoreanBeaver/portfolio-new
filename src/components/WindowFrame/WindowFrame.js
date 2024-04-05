@@ -2,7 +2,7 @@ import "./WindowFrame.css";
 import f from "assets/resources/files.json";
 
 import { useEffect, useState } from "react";
-
+import { useSelected } from "hooks/useSelected";
 import useResizeWindow from "hooks/useResizeWindow";
 import useDoubleClick from "hooks/useDoubleClick";
 
@@ -12,18 +12,7 @@ import Desktop from "./Desktop";
 const WindowFrame = () => {
 	const [width, height] = useResizeWindow();
 	const [dimensions, setDimensions] = useState([0, 0]);
-	const [files, setFiles] = useState([]);
-	const [selected, setSelected] = useState(null);
-
-	useEffect(() => {
-		setFiles(f);
-
-		document.addEventListener("keydown", handleKeyPress, false);
-
-		return () => {
-			document.removeEventListener("keydown", handleKeyPress, false);
-		};
-	}, []);
+	const [selected,setSelected, files] = useSelected(f);
 
 	const handleDesktopSC = (e) => {
 		setSelected(e.currentTarget.id);
@@ -43,10 +32,6 @@ const WindowFrame = () => {
 		}
 	};
 
-	const handleKeyPress = (e) => {
-		return;
-	}
-
 	const handleDesktopClick = useDoubleClick(handleDesktopSC, handleDesktopDC);
 
 	useEffect(() => {
@@ -54,7 +39,7 @@ const WindowFrame = () => {
 	}, [width, height]);
 
 	return (
-		<div className="window-frame-container" onKeyDown={handleKeyPress}>
+		<div className="window-frame-container">
 			<Desktop
 				dimensions={dimensions}
 				handleClick={handleDesktopClick}
