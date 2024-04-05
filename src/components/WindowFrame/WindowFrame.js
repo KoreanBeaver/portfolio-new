@@ -12,7 +12,7 @@ import Desktop from "./Desktop";
 const WindowFrame = () => {
 	const [width, height] = useResizeWindow();
 	const [dimensions, setDimensions] = useState([0, 0]);
-	const [selected, setSelected, files] = useSelected(f);
+	const [selected, setSelected, filesIdx, files] = useSelected(f);
 
 	const handleDesktopSC = (e) => {
 		setSelected(e.currentTarget.id);
@@ -25,7 +25,7 @@ const WindowFrame = () => {
 			setSelected(e.currentTarget.id);
 			return;
 		}
-		const info = files[selected];
+		const info = files[filesIdx[selected]];
 
 		if (info.type === "external_link") {
 			window.open(info.url, "_blank");

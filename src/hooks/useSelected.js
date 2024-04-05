@@ -60,7 +60,7 @@ export const useSelected = (f) => {
 		return () => {
 			document.removeEventListener("keydown", handleKeyPress, false);
 		};
-	});
+	}, [handleKeyPress]);
 
-  return [selected, setSelected, files];
+  return [selected, setSelected, filesIdx, files];
 };
