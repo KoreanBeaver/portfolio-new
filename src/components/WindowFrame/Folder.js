@@ -9,6 +9,7 @@ const Folder = ({ file, closeFolder, maxWidth, maxHeight, idx }) => {
 	const [
 		offset,
 		isDragging,
+		isResizing,
 		[width, height],
 		handleMMD,
 		handleMMU,
@@ -18,7 +19,7 @@ const Folder = ({ file, closeFolder, maxWidth, maxHeight, idx }) => {
 		handleRMM,
 		maximized,
 		maximizing,
-		handleMaximize
+		handleMaximize,
 	] = useFolderMoveResize(ref, maxWidth, maxHeight);
 
 	const style = {
@@ -36,17 +37,26 @@ const Folder = ({ file, closeFolder, maxWidth, maxHeight, idx }) => {
 	return (
 		<section ref={ref} className="folder-explorer" style={style}>
 			<div
-				className="folder-explorer-header"
+				className="folder-explorer-header-draggable"
 				onMouseMove={handleMMM}
 				onMouseDown={handleMMD}
 				onMouseUp={handleMMU}
 				onMouseLeave={handleMMU}
-			>
+				style={{
+					width: `${isDragging ? "calc(100% + 50px)" : "inherit"}`,
+					height: `${isDragging ? "100px" : "25px"}`,
+					top : `${isDragging ? "-50px" : "0px"}`,
+					left: `${isDragging ? "-25px" : "0px"}`,
+					zIndex: `${isDragging ? "100" : "inherit"}`,
+				}}
+			></div>
+			<div className="folder-explorer-header">
 				<div className="folder-explorer-header-wrapper">
 					<div className="folder-explorer-header-title">{file.name}</div>
 					<div className="folder-explorer-header-actions">
 						<div className="folder-actions folder-actions-minimize"></div>
-						<div className="folder-actions folder-actions-maximize"
+						<div
+							className="folder-actions folder-actions-maximize"
 							onClick={handleMaximize}
 						></div>
 						<div
@@ -64,9 +74,10 @@ const Folder = ({ file, closeFolder, maxWidth, maxHeight, idx }) => {
 				onMouseUp={handleRMU}
 				onMouseLeave={handleRMU}
 				style={{
-					position: "absolute",
-					top: "-10px",
-					left: "-10px",
+					top: `${isResizing ? "-40px" : "-10px"}`,
+					left: `${isResizing ? "-40px" : "-10px"}`,
+					width: `${isResizing ? "80px" : "20px"}`,
+					height: `${isResizing ? "80px" : "20px"}`,
 				}}
 			></div>
 
@@ -78,9 +89,10 @@ const Folder = ({ file, closeFolder, maxWidth, maxHeight, idx }) => {
 				onMouseUp={handleRMU}
 				onMouseLeave={handleRMU}
 				style={{
-					position: "absolute",
-					top: "-10px",
-					right: "-10px",
+					top: `${isResizing ? "-40px" : "-10px"}`,
+					right: `${isResizing ? "-40px" : "-10px"}`,
+					width: `${isResizing ? "80px" : "20px"}`,
+					height: `${isResizing ? "80px" : "20px"}`,
 				}}
 			></div>
 			<div
@@ -91,9 +103,10 @@ const Folder = ({ file, closeFolder, maxWidth, maxHeight, idx }) => {
 				onMouseUp={handleRMU}
 				onMouseLeave={handleRMU}
 				style={{
-					position: "absolute",
-					bottom: "-10px",
-					left: "-10px",
+					bottom: `${isResizing ? "-40px" : "-10px"}`,
+					left: `${isResizing ? "-40px" : "-10px"}`,
+					width: `${isResizing ? "80px" : "20px"}`,
+					height: `${isResizing ? "80px" : "20px"}`,
 				}}
 			></div>
 			<div
@@ -104,8 +117,10 @@ const Folder = ({ file, closeFolder, maxWidth, maxHeight, idx }) => {
 				onMouseUp={handleRMU}
 				onMouseLeave={handleRMU}
 				style={{
-					bottom: "-10px",
-					right: "-10px",
+					bottom: `${isResizing ? "-40px" : "-10px"}`,
+					right: `${isResizing ? "-40px" : "-10px"}`,
+					width: `${isResizing ? "80px" : "20px"}`,
+					height: `${isResizing ? "80px" : "20px"}`,
 				}}
 			></div>
 		</section>

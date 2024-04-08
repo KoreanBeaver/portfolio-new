@@ -6,6 +6,7 @@ export const useFolderMoveResize = (ref, maxWidth, maxHeight, unmaximize) => {
 	const [isDragging, setIsDragging] = useState(false);
 	const [isResizing, setIsResizing] = useState(false);
 	const [direction, setDirection] = useState("");
+	// min width and height
 	const [dimension, setDimension] = useState([320, 320]);
 	const [maximized, setMaximized] = useState(false);
 	const [prevDimension, setPrevDimension] = useState([null, null]);
@@ -36,9 +37,9 @@ export const useFolderMoveResize = (ref, maxWidth, maxHeight, unmaximize) => {
 				setMaximized(true);
 			}
 
-			setTimeout( () => {
+			setTimeout(() => {
 				setMaximizing(false);
-			}, 300)
+			}, 300);
 		},
 		[
 			maximized,
@@ -96,9 +97,8 @@ export const useFolderMoveResize = (ref, maxWidth, maxHeight, unmaximize) => {
 
 			setCurrMousePos([e.clientX, e.clientY]);
 			setDirection(direction);
-			unmaximize(false);
 		},
-		[setIsResizing, setCurrMousePos, setDirection, unmaximize]
+		[setIsResizing, setCurrMousePos, setDirection]
 	);
 
 	const handleResizeMouseMove = useCallback(
@@ -121,24 +121,28 @@ export const useFolderMoveResize = (ref, maxWidth, maxHeight, unmaximize) => {
 			if (direction === "top-left") {
 				newWidth = Math.max(width - deltaX, 320);
 				newHeight = Math.max(height - deltaY, 320);
-				newTop = top + deltaY;
-				newLeft = left + deltaX;
+
+				if (newWidth > 320) {
+					newLeft = left + deltaX;
+				}
+				if (newHeight > 320) {
+					newTop = top + deltaY;
+				}
 			} else if (direction === "top-right") {
 				newWidth = Math.max(width + deltaX, 320);
 				newHeight = Math.max(height - deltaY, 320);
-				newTop = top + deltaY;
+				if (newHeight > 320) {
+					newTop = top + deltaY;
+				}
 			} else if (direction === "bottom-left") {
 				newWidth = Math.max(width - deltaX, 320);
 				newHeight = Math.max(height + deltaY, 320);
-				newLeft = left + deltaX;
+				if (newWidth > 320) {
+					newLeft = left + deltaX;
+				}
 			} else if (direction === "bottom-right") {
 				newWidth = Math.max(width + deltaX, 320);
 				newHeight = Math.max(height + deltaY, 320);
-			}
-
-			if (newWidth < 320 || newHeight < 320) {
-				setIsResizing(false);
-				return;
 			}
 
 			setOffset([newTop, newLeft]);
@@ -167,6 +171,7 @@ export const useFolderMoveResize = (ref, maxWidth, maxHeight, unmaximize) => {
 	return [
 		offset,
 		isDragging,
+		isResizing,
 		dimension,
 		handleMoveMouseDown,
 		handleMoveMouseUp,
