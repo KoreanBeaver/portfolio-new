@@ -24,6 +24,15 @@
 		"name": "Projects",
 		"type": "folder",
 		"icon": "fa-solid fa-folder folder",
-		"id": "projects"
+		"id": "projects",
+		"files" : [
+			{
+				"name": "Portfolio",
+				"type": "external_link",
+				"url": "https://localhost:3000/",
+				"icon": "desktop-icon devicon-react-original colored",
+				"id": "portfolio"
+			}
+		]
 	}
 ]

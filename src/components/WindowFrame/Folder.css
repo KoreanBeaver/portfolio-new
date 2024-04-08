@@ -1,0 +1,60 @@
+.folder-explorer {
+  background: white;
+  position: absolute;
+  border-radius: 5px;
+  max-width: 100%;
+  max-height: calc(100% - 40px);
+  
+}
+
+.folder-explorer-header {
+  display: flex;
+  width: 100%;
+  height: 25px;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid black;
+  font-size: 12px;
+}
+
+.folder-explorer-header-wrapper {
+  display:flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  padding: 0 5px;
+}
+
+.folder-explorer-header-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.folder-actions {
+  display:flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid black;
+  width: 18px;
+  height: 18px;
+  border-radius: 5px;
+  margin: 0 2px;
+  text-align: center;
+}
+
+.folder-explorer-size-change {
+  position:absolute;
+  height: 5px;
+  width: 5px;
+  border: 1px solid black;
+}
+
+.top-left:hover, .bottom-right:hover {
+  cursor: nwse-resize
+}
+
+.top-right:hover, .bottom-left:hover {
+  cursor: nesw-resize
+}

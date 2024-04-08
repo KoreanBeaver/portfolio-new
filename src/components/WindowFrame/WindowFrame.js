@@ -1,18 +1,20 @@
 import "./WindowFrame.css";
 import f from "assets/resources/files.json";
 
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useSelected } from "hooks/useSelected";
 import { useResizeWindow } from "hooks/useResizeWindow";
 import { useDoubleClick } from "hooks/useDoubleClick";
 
 import Startbar from "./Startbar";
 import Desktop from "./Desktop";
+import Folder from "./Folder";
 
 const WindowFrame = () => {
 	const [width, height] = useResizeWindow();
 	const [dimensions, setDimensions] = useState([0, 0]);
 	const [selected, setSelected, filesIdx, files] = useSelected(f);
+	const [openFolders, setOpenFolders] = useState([]);
 
 	const handleDesktopSC = (e) => {
 		setSelected(e.currentTarget.id);
@@ -29,14 +31,30 @@ const WindowFrame = () => {
 
 		if (info.type === "external_link") {
 			window.open(info.url, "_blank");
+		} else if (info.type === "folder") {
+			if (!openFolders.includes(info.id)) {
+				setOpenFolders([...openFolders, info.id]);
+			}
 		}
 	};
-
 	const handleDesktopClick = useDoubleClick(handleDesktopSC, handleDesktopDC);
 
 	useEffect(() => {
-		setDimensions([Math.floor((width - 40) / 80), Math.floor(height / 80)]);
+		setDimensions([Math.floor((width) / 80), Math.floor((height - 40) / 80)]);
 	}, [width, height]);
+
+	const closeFolder = useCallback(
+		(folderId) => {
+			const idx = openFolders.indexOf(folderId);
+
+			if (idx !== -1) {
+				const newFolders = [...openFolders];
+				newFolders.splice(idx, 1);
+				setOpenFolders(newFolders);
+			}
+		},
+		[openFolders]
+	);
 
 	return (
 		<div className="window-frame-container">
@@ -47,6 +65,17 @@ const WindowFrame = () => {
 				selected={selected}
 			/>
 			<Startbar />
+			{openFolders.map((folderId, idx) => {
+				return (
+					<Folder
+						key={folderId + idx}
+						file={files[filesIdx[folderId]]}
+						closeFolder={closeFolder}
+						maxWidth={width}
+						maxHeight={height - 40}
+					/>
+				);
+			})}
 		</div>
 	);
 };
