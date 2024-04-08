@@ -43,10 +43,9 @@ const Folder = ({ file, closeFolder, maxWidth, maxHeight, idx }) => {
 				onMouseUp={handleMMU}
 				onMouseLeave={handleMMU}
 				style={{
-					width: `${isDragging ? "calc(100% + 50px)" : "inherit"}`,
-					height: `${isDragging ? "100px" : "25px"}`,
-					top : `${isDragging ? "-50px" : "0px"}`,
-					left: `${isDragging ? "-25px" : "0px"}`,
+					padding: `${isDragging ? "30px" : "0px"}`,
+					top : `${isDragging ? "-30px" : "0px"}`,
+					left: `${isDragging ? "-30px" : "0px"}`,
 					zIndex: `${isDragging ? "100" : "inherit"}`,
 				}}
 			></div>
@@ -67,7 +66,7 @@ const Folder = ({ file, closeFolder, maxWidth, maxHeight, idx }) => {
 				</div>
 			</div>
 			<div
-				className="folder-explorer-size-change top-left"
+				className="folder-explorer-resize top-left"
 				id="top-left"
 				onMouseDown={handleRMD}
 				onMouseMove={handleRMM}
@@ -76,13 +75,13 @@ const Folder = ({ file, closeFolder, maxWidth, maxHeight, idx }) => {
 				style={{
 					top: `${isResizing ? "-40px" : "-10px"}`,
 					left: `${isResizing ? "-40px" : "-10px"}`,
-					width: `${isResizing ? "80px" : "20px"}`,
-					height: `${isResizing ? "80px" : "20px"}`,
+					padding: `${isResizing ? "30px" : "0px"}`,
+					zIndex: `${isResizing ? "100" : "inherit"}`,
 				}}
 			></div>
 
 			<div
-				className="folder-explorer-size-change top-right"
+				className="folder-explorer-resize top-right"
 				id="top-right"
 				onMouseDown={handleRMD}
 				onMouseMove={handleRMM}
@@ -91,12 +90,12 @@ const Folder = ({ file, closeFolder, maxWidth, maxHeight, idx }) => {
 				style={{
 					top: `${isResizing ? "-40px" : "-10px"}`,
 					right: `${isResizing ? "-40px" : "-10px"}`,
-					width: `${isResizing ? "80px" : "20px"}`,
-					height: `${isResizing ? "80px" : "20px"}`,
+					padding: `${isResizing ? "30px" : "0px"}`,
+					zIndex: `${isResizing ? "100" : "inherit"}`,
 				}}
 			></div>
 			<div
-				className="folder-explorer-size-change bottom-left"
+				className="folder-explorer-resize bottom-left"
 				id="bottom-left"
 				onMouseDown={handleRMD}
 				onMouseMove={handleRMM}
@@ -105,12 +104,12 @@ const Folder = ({ file, closeFolder, maxWidth, maxHeight, idx }) => {
 				style={{
 					bottom: `${isResizing ? "-40px" : "-10px"}`,
 					left: `${isResizing ? "-40px" : "-10px"}`,
-					width: `${isResizing ? "80px" : "20px"}`,
-					height: `${isResizing ? "80px" : "20px"}`,
+					padding: `${isResizing ? "30px" : "0px"}`,
+					zIndex: `${isResizing ? "100" : "inherit"}`,
 				}}
 			></div>
 			<div
-				className="folder-explorer-size-change bottom-right"
+				className="folder-explorer-resize bottom-right"
 				id="bottom-right"
 				onMouseDown={handleRMD}
 				onMouseMove={handleRMM}
@@ -119,8 +118,8 @@ const Folder = ({ file, closeFolder, maxWidth, maxHeight, idx }) => {
 				style={{
 					bottom: `${isResizing ? "-40px" : "-10px"}`,
 					right: `${isResizing ? "-40px" : "-10px"}`,
-					width: `${isResizing ? "80px" : "20px"}`,
-					height: `${isResizing ? "80px" : "20px"}`,
+					padding: `${isResizing ? "30px" : "0px"}`,
+					zIndex: `${isResizing ? "100" : "inherit"}`,
 				}}
 			></div>
 		</section>

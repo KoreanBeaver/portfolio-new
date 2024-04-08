@@ -9,6 +9,7 @@
 
 .folder-explorer-header-draggable {
   width: inherit;
+  height: 25px;
   position:absolute;
 }
 
@@ -66,11 +67,10 @@
   background-color: #4CAF50;
 }
 
-.folder-explorer-size-change {
+.folder-explorer-resize {
   position:absolute;
   height: 20px;
   width: 20px;
-  z-index: 1;
 }
 
 .top-left:hover, .bottom-right:hover {
