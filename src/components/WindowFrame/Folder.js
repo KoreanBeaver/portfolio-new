@@ -4,9 +4,8 @@ import { useRef } from "react";
 
 import { useFolderMoveResize } from "hooks/useFolderMoveResize";
 
-const Folder = ({ file, closeFolder, maxWidth, maxHeight }) => {
+const Folder = ({ file, closeFolder, maxWidth, maxHeight, idx }) => {
 	const ref = useRef(null);
-
 	const [
 		offset,
 		isDragging,
@@ -17,6 +16,9 @@ const Folder = ({ file, closeFolder, maxWidth, maxHeight }) => {
 		handleRMD,
 		handleRMU,
 		handleRMM,
+		maximized,
+		maximizing,
+		handleMaximize
 	] = useFolderMoveResize(ref, maxWidth, maxHeight);
 
 	const style = {
@@ -26,6 +28,9 @@ const Folder = ({ file, closeFolder, maxWidth, maxHeight }) => {
 		top: `${offset[0]}px`,
 		left: `${offset[1]}px`,
 		cursor: `${isDragging ? "move" : "default"}`,
+		borderRadius: `${maximized ? "0" : "5px"}`,
+		zIndex: idx + 1,
+		transition: `${maximizing ? "all 0.3s" : "none"}`,
 	};
 
 	return (
@@ -40,18 +45,14 @@ const Folder = ({ file, closeFolder, maxWidth, maxHeight }) => {
 				<div className="folder-explorer-header-wrapper">
 					<div className="folder-explorer-header-title">{file.name}</div>
 					<div className="folder-explorer-header-actions">
-						<div className="folder-actions">
-							<i className="fa-solid fa-window-minimize"></i>
-						</div>
-						<div className="folder-actions">
-							<i className="fa-regular fa-square"></i>
-						</div>
+						<div className="folder-actions folder-actions-minimize"></div>
+						<div className="folder-actions folder-actions-maximize"
+							onClick={handleMaximize}
+						></div>
 						<div
-							className="folder-actions"
+							className="folder-actions folder-actions-close"
 							onClick={(_e) => closeFolder(file.id)}
-						>
-							<i className="fa-solid fa-x"></i>
-						</div>
+						></div>
 					</div>
 				</div>
 			</div>

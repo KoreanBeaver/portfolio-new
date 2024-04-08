@@ -1,10 +1,9 @@
 .folder-explorer {
   background: white;
   position: absolute;
-  border-radius: 5px;
   max-width: 100%;
   max-height: calc(100% - 40px);
-  
+  overflow: hidden;
 }
 
 .folder-explorer-header {
@@ -15,6 +14,7 @@
   align-items: center;
   border-bottom: 1px solid black;
   font-size: 12px;
+  background-color: #f0f0f0;
 }
 
 .folder-explorer-header-wrapper {
@@ -36,12 +36,24 @@
   display:flex;
   justify-content: center;
   align-items: center;
-  border: 1px solid black;
-  width: 18px;
-  height: 18px;
-  border-radius: 5px;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
   margin: 0 2px;
   text-align: center;
+  color: white;
+}
+
+.folder-actions-minimize {
+  background-color: #FFC107;
+}
+
+.folder-actions-close {
+  background-color: #F44336;
+}
+
+.folder-actions-maximize {
+  background-color: #4CAF50;
 }
 
 .folder-explorer-size-change {

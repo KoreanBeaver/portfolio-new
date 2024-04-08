@@ -1,12 +1,16 @@
 import { useState, useEffect, useCallback } from "react";
 
-export const useFolderMoveResize = (ref, maxWidth, maxHeight) => {
+export const useFolderMoveResize = (ref, maxWidth, maxHeight, unmaximize) => {
 	const [offset, setOffset] = useState([100, 100]);
 	const [currMousePos, setCurrMousePos] = useState([0, 0]);
 	const [isDragging, setIsDragging] = useState(false);
 	const [isResizing, setIsResizing] = useState(false);
 	const [direction, setDirection] = useState("");
 	const [dimension, setDimension] = useState([320, 320]);
+	const [maximized, setMaximized] = useState(false);
+	const [prevDimension, setPrevDimension] = useState([null, null]);
+	const [prevOffset, setPrevOffset] = useState([null, null]);
+	const [maximizing, setMaximizing] = useState(false);
 
 	useEffect(() => {
 		const folder = ref.current;
@@ -14,6 +18,42 @@ export const useFolderMoveResize = (ref, maxWidth, maxHeight) => {
 		setOffset([top, left]);
 		setDimension([width, height]);
 	}, [ref]);
+
+	const handleMaximize = useCallback(
+		(e) => {
+			setMaximizing(true);
+			if (maximized) {
+				setDimension(prevDimension);
+				setOffset(prevOffset);
+				setPrevDimension([null, null]);
+				setPrevOffset([null, null]);
+				setMaximized(false);
+			} else {
+				setPrevDimension(dimension);
+				setPrevOffset(offset);
+				setDimension([maxWidth, maxHeight]);
+				setOffset([0, 0]);
+				setMaximized(true);
+			}
+
+			setTimeout( () => {
+				setMaximizing(false);
+			}, 300)
+		},
+		[
+			maximized,
+			setDimension,
+			setOffset,
+			setPrevDimension,
+			setPrevOffset,
+			maxWidth,
+			maxHeight,
+			prevOffset,
+			prevDimension,
+			dimension,
+			offset,
+		]
+	);
 
 	// Move
 	const handleMoveMouseDown = useCallback(
@@ -26,7 +66,7 @@ export const useFolderMoveResize = (ref, maxWidth, maxHeight) => {
 
 	const handleMoveMouseMove = useCallback(
 		(e) => {
-			if (!isDragging) return;
+			if (!isDragging || maximized) return;
 
 			const { clientX, clientY } = e;
 			const [startX, startY] = currMousePos;
@@ -38,7 +78,7 @@ export const useFolderMoveResize = (ref, maxWidth, maxHeight) => {
 			setOffset([newTop, newLeft]);
 			setCurrMousePos([clientX, clientY]);
 		},
-		[isDragging, currMousePos, offset, setOffset]
+		[isDragging, currMousePos, offset, setOffset, maximized]
 	);
 
 	const handleMoveMouseUp = useCallback(
@@ -56,8 +96,9 @@ export const useFolderMoveResize = (ref, maxWidth, maxHeight) => {
 
 			setCurrMousePos([e.clientX, e.clientY]);
 			setDirection(direction);
+			unmaximize(false);
 		},
-		[setIsResizing, setCurrMousePos, setDirection]
+		[setIsResizing, setCurrMousePos, setDirection, unmaximize]
 	);
 
 	const handleResizeMouseMove = useCallback(
@@ -86,11 +127,11 @@ export const useFolderMoveResize = (ref, maxWidth, maxHeight) => {
 				newWidth = Math.max(width + deltaX, 320);
 				newHeight = Math.max(height - deltaY, 320);
 				newTop = top + deltaY;
-			}	else if (direction === "bottom-left") {
+			} else if (direction === "bottom-left") {
 				newWidth = Math.max(width - deltaX, 320);
 				newHeight = Math.max(height + deltaY, 320);
 				newLeft = left + deltaX;
-			}	else if (direction === "bottom-right") {
+			} else if (direction === "bottom-right") {
 				newWidth = Math.max(width + deltaX, 320);
 				newHeight = Math.max(height + deltaY, 320);
 			}
@@ -99,7 +140,7 @@ export const useFolderMoveResize = (ref, maxWidth, maxHeight) => {
 				setIsResizing(false);
 				return;
 			}
-			
+
 			setOffset([newTop, newLeft]);
 			setDimension([newWidth, newHeight]);
 			setCurrMousePos([clientX, clientY]);
@@ -133,5 +174,8 @@ export const useFolderMoveResize = (ref, maxWidth, maxHeight) => {
 		handleResizeMouseDown,
 		handleResizeMouseUp,
 		handleResizeMouseMove,
+		maximized,
+		maximizing,
+		handleMaximize,
 	];
 };

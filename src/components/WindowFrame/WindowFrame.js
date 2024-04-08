@@ -73,6 +73,7 @@ const WindowFrame = () => {
 						closeFolder={closeFolder}
 						maxWidth={width}
 						maxHeight={height - 40}
+						idx={idx}
 					/>
 				);
 			})}
