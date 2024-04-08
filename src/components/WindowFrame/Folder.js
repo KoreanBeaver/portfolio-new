@@ -2,23 +2,41 @@ import "./Folder.css";
 
 import { useRef } from "react";
 
-import { useFolderMove } from "hooks/useFolderMove";
+import { useFolderMoveResize } from "hooks/useFolderMoveResize";
 
 const Folder = ({ file, closeFolder, maxWidth, maxHeight }) => {
 	const ref = useRef(null);
-	const [offset, handleMoveMouseDown, handleMoveMouseUp, handleMoveMouseMove] = useFolderMove(ref);
+
+	const [
+		offset,
+		isDragging,
+		[width, height],
+		handleMMD,
+		handleMMU,
+		handleMMM,
+		handleRMD,
+		handleRMU,
+		handleRMM,
+	] = useFolderMoveResize(ref, maxWidth, maxHeight);
 
 	const style = {
 		position: "absolute",
-		width: "250px",
-		height: `250px`,
+		width: `${width}px`,
+		height: `${height}px`,
 		top: `${offset[0]}px`,
 		left: `${offset[1]}px`,
+		cursor: `${isDragging ? "move" : "default"}`,
 	};
 
 	return (
 		<section ref={ref} className="folder-explorer" style={style}>
-			<div className="folder-explorer-header" onMouseMove={handleMoveMouseMove} onMouseDown={handleMoveMouseDown} onMouseUp={handleMoveMouseUp}>
+			<div
+				className="folder-explorer-header"
+				onMouseMove={handleMMM}
+				onMouseDown={handleMMD}
+				onMouseUp={handleMMU}
+				onMouseLeave={handleMMU}
+			>
 				<div className="folder-explorer-header-wrapper">
 					<div className="folder-explorer-header-title">{file.name}</div>
 					<div className="folder-explorer-header-actions">
@@ -28,7 +46,10 @@ const Folder = ({ file, closeFolder, maxWidth, maxHeight }) => {
 						<div className="folder-actions">
 							<i className="fa-regular fa-square"></i>
 						</div>
-						<div className="folder-actions" onClick={(e) => closeFolder(file.id)}>
+						<div
+							className="folder-actions"
+							onClick={(_e) => closeFolder(file.id)}
+						>
 							<i className="fa-solid fa-x"></i>
 						</div>
 					</div>
@@ -36,33 +57,54 @@ const Folder = ({ file, closeFolder, maxWidth, maxHeight }) => {
 			</div>
 			<div
 				className="folder-explorer-size-change top-left"
+				id="top-left"
+				onMouseDown={handleRMD}
+				onMouseMove={handleRMM}
+				onMouseUp={handleRMU}
+				onMouseLeave={handleRMU}
 				style={{
 					position: "absolute",
-					top: "0",
-					left: "0"
+					top: "-10px",
+					left: "-10px",
 				}}
 			></div>
+
 			<div
 				className="folder-explorer-size-change top-right"
+				id="top-right"
+				onMouseDown={handleRMD}
+				onMouseMove={handleRMM}
+				onMouseUp={handleRMU}
+				onMouseLeave={handleRMU}
 				style={{
 					position: "absolute",
-					top: "0",
-					right: "0"
+					top: "-10px",
+					right: "-10px",
 				}}
 			></div>
 			<div
 				className="folder-explorer-size-change bottom-left"
+				id="bottom-left"
+				onMouseDown={handleRMD}
+				onMouseMove={handleRMM}
+				onMouseUp={handleRMU}
+				onMouseLeave={handleRMU}
 				style={{
 					position: "absolute",
-					bottom: "0",
-					left: "0"
+					bottom: "-10px",
+					left: "-10px",
 				}}
 			></div>
 			<div
 				className="folder-explorer-size-change bottom-right"
+				id="bottom-right"
+				onMouseDown={handleRMD}
+				onMouseMove={handleRMM}
+				onMouseUp={handleRMU}
+				onMouseLeave={handleRMU}
 				style={{
-					bottom: "0",
-					right: "0"
+					bottom: "-10px",
+					right: "-10px",
 				}}
 			></div>
 		</section>
