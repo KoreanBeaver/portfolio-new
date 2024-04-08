@@ -55,6 +55,11 @@
   z-index: 1;
 }
 
+.folder-explorer-content {
+  width: 100%;
+  height: calc(100% - 25px);
+}
+
 .folder-actions-minimize {
   background-color: #FFC107;
 }

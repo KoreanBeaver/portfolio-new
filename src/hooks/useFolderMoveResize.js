@@ -103,7 +103,11 @@ export const useFolderMoveResize = (ref, maxWidth, maxHeight, unmaximize) => {
 
 	const handleResizeMouseMove = useCallback(
 		(e) => {
-			if (!isResizing) return;
+			if (!isResizing || maximized) {
+				setIsResizing(false);
+				setDirection("");
+				return;
+			}
 
 			// moved mouse position
 			const { clientX, clientY } = e;
@@ -157,6 +161,7 @@ export const useFolderMoveResize = (ref, maxWidth, maxHeight, unmaximize) => {
 			setDimension,
 			setCurrMousePos,
 			direction,
+			maximized,
 		]
 	);
 

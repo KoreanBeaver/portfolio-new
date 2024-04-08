@@ -3,6 +3,9 @@ import "./Folder.css";
 import { useRef } from "react";
 
 import { useFolderMoveResize } from "hooks/useFolderMoveResize";
+import { useSelected } from "hooks/useSelected";
+
+import File from "./File";
 
 const Folder = ({ file, closeFolder, maxWidth, maxHeight, idx }) => {
 	const ref = useRef(null);
@@ -64,6 +67,13 @@ const Folder = ({ file, closeFolder, maxWidth, maxHeight, idx }) => {
 						></div>
 					</div>
 				</div>
+			</div>
+			<div className="folder-explorer-content">
+				{
+					file.files.map((f, i) => {
+						return <File key={i} file={f} />;
+					})
+				}
 			</div>
 			<div
 				className="folder-explorer-resize top-left"
