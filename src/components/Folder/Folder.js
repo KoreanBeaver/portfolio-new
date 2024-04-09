@@ -6,8 +6,8 @@ import { useFolderMoveResize } from "hooks/useFolderMoveResize";
 import { useDoubleClick } from "hooks/useDoubleClick";
 import { useSelected } from "hooks/useSelected";
 
-import FolderContent from "./FolderContent";
-import Resize from "./Resize";
+import FolderContent from "./FolderContent/FolderContent";
+import Resize from "./Resize/Resize";
 
 const Folder = ({ file, closeFolder, maxWidth, maxHeight, idx }) => {
 	const ref = useRef(null);

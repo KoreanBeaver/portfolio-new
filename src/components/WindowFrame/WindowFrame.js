@@ -6,9 +6,9 @@ import { useSelected } from "hooks/useSelected";
 import { useResizeWindow } from "hooks/useResizeWindow";
 import { useDoubleClick } from "hooks/useDoubleClick";
 
-import Startbar from "./Startbar";
-import Desktop from "./Desktop";
-import Folder from "./Folder";
+import Startbar from "../Startbar/Startbar";
+import Desktop from "../Desktop/Desktop";
+import Folder from "../Folder/Folder";
 
 const WindowFrame = () => {
 	const ref = useRef(null);

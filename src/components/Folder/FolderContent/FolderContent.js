@@ -1,6 +1,6 @@
 import "./FolderContent.css";
 
-import File from "./File";
+import File from "../../File/File";
 
 const FolderContent = ({dimensions, handleClick, files, selected}) => {
   const style={

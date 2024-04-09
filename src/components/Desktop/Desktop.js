@@ -2,7 +2,7 @@ import "./Desktop.css";
 
 import { forwardRef } from "react";
 
-import File from "./File";
+import File from "../File/File";
 
 const Desktop = forwardRef(
 	({ dimensions, handleClick, files, selected }, ref) => {
