@@ -1,7 +1,7 @@
 import "./WindowFrame.css";
 import f from "assets/resources/files.json";
 
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { useSelected } from "hooks/useSelected";
 import { useResizeWindow } from "hooks/useResizeWindow";
 import { useDoubleClick } from "hooks/useDoubleClick";
@@ -11,54 +11,43 @@ import Desktop from "./Desktop";
 import Folder from "./Folder";
 
 const WindowFrame = () => {
+	const ref = useRef(null);
 	const [width, height] = useResizeWindow();
 	const [dimensions, setDimensions] = useState([0, 0]);
-	const [selected, setSelected, filesIdx, files] = useSelected(f);
-	const [openFolders, setOpenFolders] = useState([]);
+	const [
+		selected,
+		openFolders,
+		filesIdx,
+		files,
+		handleSC,
+		handleDC,
+		closeFolder,
+		handleKP,
+	] = useSelected(f);
 
-	const handleDesktopSC = (e) => {
-		setSelected(e.currentTarget.id);
-	};
-
-	const handleDesktopDC = (e) => {
-		if (!selected) return;
-
-		if (selected !== e.currentTarget.id) {
-			setSelected(e.currentTarget.id);
-			return;
-		}
-		const info = files[filesIdx[selected]];
-
-		if (info.type === "external_link") {
-			window.open(info.url, "_blank");
-		} else if (info.type === "folder") {
-			if (!openFolders.includes(info.id)) {
-				setOpenFolders([...openFolders, info.id]);
-			}
-		}
-	};
-	const handleDesktopClick = useDoubleClick(handleDesktopSC, handleDesktopDC);
+	const handleDesktopClick = useDoubleClick(handleSC, handleDC);
 
 	useEffect(() => {
-		setDimensions([Math.floor((width) / 80), Math.floor((height - 40) / 80)]);
+		setDimensions([Math.floor(width / 80), Math.floor((height - 40) / 80)]);
 	}, [width, height]);
 
-	const closeFolder = useCallback(
-		(folderId) => {
-			const idx = openFolders.indexOf(folderId);
+	useEffect(() => {
+		const currRef = ref;
+		if (currRef && currRef.current) {
+			currRef.current.addEventListener("keydown", handleKP);
+		}
 
-			if (idx !== -1) {
-				const newFolders = [...openFolders];
-				newFolders.splice(idx, 1);
-				setOpenFolders(newFolders);
+		return () => {
+			if (currRef && currRef.current) {
+				currRef.current.removeEventListener("keydown", handleKP);
 			}
-		},
-		[openFolders]
-	);
+		};
+	}, [ref, handleKP]);
 
 	return (
 		<div className="window-frame-container">
 			<Desktop
+				ref={ref}
 				dimensions={dimensions}
 				handleClick={handleDesktopClick}
 				files={files}
