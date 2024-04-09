@@ -33,7 +33,6 @@ export const useFolderMoveResize = (ref, maxWidth, maxHeight, unmaximize) => {
 			} else {
 				setPrevDimension(dimension);
 				setPrevOffset(offset);
-				console.log(dimension)
 				setDimension([maxWidth, maxHeight]);
 				setOffset([0, 0]);
 				setMaximized(true);

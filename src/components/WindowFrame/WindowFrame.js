@@ -14,7 +14,6 @@ const WindowFrame = () => {
 	const ref = useRef(null);
 	const [width, height] = useResizeWindow();
 	const [dimensions, setDimensions] = useState([0, 0]);
-	const [focused, setFocused] = useState(null);
 	
 	const [
 		selected,
