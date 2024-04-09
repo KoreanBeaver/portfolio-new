@@ -6,8 +6,8 @@ import { useFolderMoveResize } from "hooks/useFolderMoveResize";
 import { useDoubleClick } from "hooks/useDoubleClick";
 import { useSelected } from "hooks/useSelected";
 
-import File from "./File";
 import FolderContent from "./FolderContent";
+import Resize from "./Resize";
 
 const Folder = ({ file, closeFolder, maxWidth, maxHeight, idx }) => {
 	const ref = useRef(null);
@@ -27,6 +27,7 @@ const Folder = ({ file, closeFolder, maxWidth, maxHeight, idx }) => {
 		handleMaximize,
 	] = useFolderMoveResize(ref, maxWidth, maxHeight);
 
+	// eslint-disable-next-line no-unused-vars
 	const [selected, openFolders, filesIdx, files, handleSC, handleDC] =
 		useSelected(file.files);
 
@@ -83,63 +84,12 @@ const Folder = ({ file, closeFolder, maxWidth, maxHeight, idx }) => {
 					dimensions={dimensions}
 				/>
 			</div>
-			<div
-				className="folder-explorer-resize top-left"
-				id="top-left"
-				onMouseDown={handleRMD}
-				onMouseMove={handleRMM}
-				onMouseUp={handleRMU}
-				onMouseLeave={handleRMU}
-				style={{
-					top: `${isResizing ? "-40px" : "-10px"}`,
-					left: `${isResizing ? "-40px" : "-10px"}`,
-					padding: `${isResizing ? "30px" : "0px"}`,
-					zIndex: `${isResizing ? "100" : "inherit"}`,
-				}}
-			></div>
-
-			<div
-				className="folder-explorer-resize top-right"
-				id="top-right"
-				onMouseDown={handleRMD}
-				onMouseMove={handleRMM}
-				onMouseUp={handleRMU}
-				onMouseLeave={handleRMU}
-				style={{
-					top: `${isResizing ? "-40px" : "-10px"}`,
-					right: `${isResizing ? "-40px" : "-10px"}`,
-					padding: `${isResizing ? "30px" : "0px"}`,
-					zIndex: `${isResizing ? "100" : "inherit"}`,
-				}}
-			></div>
-			<div
-				className="folder-explorer-resize bottom-left"
-				id="bottom-left"
-				onMouseDown={handleRMD}
-				onMouseMove={handleRMM}
-				onMouseUp={handleRMU}
-				onMouseLeave={handleRMU}
-				style={{
-					bottom: `${isResizing ? "-40px" : "-10px"}`,
-					left: `${isResizing ? "-40px" : "-10px"}`,
-					padding: `${isResizing ? "30px" : "0px"}`,
-					zIndex: `${isResizing ? "100" : "inherit"}`,
-				}}
-			></div>
-			<div
-				className="folder-explorer-resize bottom-right"
-				id="bottom-right"
-				onMouseDown={handleRMD}
-				onMouseMove={handleRMM}
-				onMouseUp={handleRMU}
-				onMouseLeave={handleRMU}
-				style={{
-					bottom: `${isResizing ? "-40px" : "-10px"}`,
-					right: `${isResizing ? "-40px" : "-10px"}`,
-					padding: `${isResizing ? "30px" : "0px"}`,
-					zIndex: `${isResizing ? "100" : "inherit"}`,
-				}}
-			></div>
+			<Resize
+				handleRMD={handleRMD}
+				handleRMM={handleRMM}
+				handleRMU={handleRMU}
+				isResizing={isResizing}
+			/>
 		</section>
 	);
 };

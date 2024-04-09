@@ -1,6 +1,6 @@
 import "./Desktop.css";
 
-import { forwardRef, useImperativeHandle } from "react";
+import { forwardRef } from "react";
 
 import File from "./File";
 

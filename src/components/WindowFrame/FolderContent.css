@@ -6,3 +6,12 @@
   justify-content: space-between;
   align-content: flex-start;
 }
+
+.folder-content-row {
+  display:flex;
+  width: 100%;
+}
+
+.folder-content-full {
+  justify-content: space-between;
+}

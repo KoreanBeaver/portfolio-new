@@ -7,7 +7,6 @@ export const useSelected = (f) => {
 	const [openFolders, setOpenFolders] = useState([]);
 
 	const handleKeyPress = (e) => {
-		console.log("hi");
 		switch (e.keyCode) {
 			case 27:
 				setSelected(null);

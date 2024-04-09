@@ -14,6 +14,8 @@ const WindowFrame = () => {
 	const ref = useRef(null);
 	const [width, height] = useResizeWindow();
 	const [dimensions, setDimensions] = useState([0, 0]);
+	const [focused, setFocused] = useState(null);
+	
 	const [
 		selected,
 		openFolders,
@@ -22,7 +24,7 @@ const WindowFrame = () => {
 		handleSC,
 		handleDC,
 		closeFolder,
-		handleKP,
+		handleKeyPress,
 	] = useSelected(f);
 
 	const handleDesktopClick = useDoubleClick(handleSC, handleDC);
@@ -31,18 +33,14 @@ const WindowFrame = () => {
 		setDimensions([Math.floor(width / 80), Math.floor((height - 40) / 80)]);
 	}, [width, height]);
 
-	useEffect(() => {
-		const currRef = ref;
-		if (currRef && currRef.current) {
-			currRef.current.addEventListener("keydown", handleKP);
-		}
-
+	useEffect( () => {
+		document.addEventListener("keydown", handleKeyPress);
+		
 		return () => {
-			if (currRef && currRef.current) {
-				currRef.current.removeEventListener("keydown", handleKP);
-			}
+			document.removeEventListener("keydown", handleKeyPress);
 		};
-	}, [ref, handleKP]);
+	})
+
 
 	return (
 		<div className="window-frame-container">

@@ -66,17 +66,3 @@
 .folder-actions-maximize {
   background-color: #4CAF50;
 }
-
-.folder-explorer-resize {
-  position:absolute;
-  height: 20px;
-  width: 20px;
-}
-
-.top-left:hover, .bottom-right:hover {
-  cursor: nwse-resize
-}
-
-.top-right:hover, .bottom-left:hover {
-  cursor: nesw-resize
-}
