@@ -3,9 +3,11 @@ import "./Folder.css";
 import { useRef } from "react";
 
 import { useFolderMoveResize } from "hooks/useFolderMoveResize";
+import { useDoubleClick } from "hooks/useDoubleClick";
 import { useSelected } from "hooks/useSelected";
 
 import File from "./File";
+import FolderContent from "./FolderContent";
 
 const Folder = ({ file, closeFolder, maxWidth, maxHeight, idx }) => {
 	const ref = useRef(null);
@@ -74,11 +76,12 @@ const Folder = ({ file, closeFolder, maxWidth, maxHeight, idx }) => {
 				</div>
 			</div>
 			<div className="folder-explorer-content">
-				{
-					file.files.map((f, i) => {
-						return <File key={i} file={f} />;
-					})
-				}
+				<FolderContent
+					handleClick={handleClick}
+					files={files}
+					selected={selected}
+					dimensions={dimensions}
+				/>
 			</div>
 			<div
 				className="folder-explorer-resize top-left"
