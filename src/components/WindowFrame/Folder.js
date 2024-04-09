@@ -4,8 +4,9 @@ import { useRef } from "react";
 
 import { useFolderMoveResize } from "hooks/useFolderMoveResize";
 import { useSelected } from "hooks/useSelected";
+import { useDoubleClick } from "hooks/useDoubleClick";
 
-import File from "./File";
+import FolderContent from "./FolderContent";
 
 const Folder = ({ file, closeFolder, maxWidth, maxHeight, idx }) => {
 	const ref = useRef(null);
@@ -13,7 +14,7 @@ const Folder = ({ file, closeFolder, maxWidth, maxHeight, idx }) => {
 		offset,
 		isDragging,
 		isResizing,
-		[width, height],
+		dimensions,
 		handleMMD,
 		handleMMU,
 		handleMMM,
@@ -25,10 +26,13 @@ const Folder = ({ file, closeFolder, maxWidth, maxHeight, idx }) => {
 		handleMaximize,
 	] = useFolderMoveResize(ref, maxWidth, maxHeight);
 
+	const [selected, openFolders, filesIdx, files, handleSC, handleDC] =
+		useSelected(file.files);
+
 	const style = {
 		position: "absolute",
-		width: `${width}px`,
-		height: `${height}px`,
+		width: `${dimensions[0]}px`,
+		height: `${dimensions[1]}px`,
 		top: `${offset[0]}px`,
 		left: `${offset[1]}px`,
 		cursor: `${isDragging ? "move" : "default"}`,
@@ -36,6 +40,8 @@ const Folder = ({ file, closeFolder, maxWidth, maxHeight, idx }) => {
 		zIndex: idx + 1,
 		transition: `${maximizing ? "all 0.3s" : "none"}`,
 	};
+
+	const handleClick = useDoubleClick(handleSC, handleDC);
 
 	return (
 		<section ref={ref} className="folder-explorer" style={style}>
@@ -47,7 +53,7 @@ const Folder = ({ file, closeFolder, maxWidth, maxHeight, idx }) => {
 				onMouseLeave={handleMMU}
 				style={{
 					padding: `${isDragging ? "30px" : "0px"}`,
-					top : `${isDragging ? "-30px" : "0px"}`,
+					top: `${isDragging ? "-30px" : "0px"}`,
 					left: `${isDragging ? "-30px" : "0px"}`,
 					zIndex: `${isDragging ? "100" : "inherit"}`,
 				}}
@@ -69,11 +75,12 @@ const Folder = ({ file, closeFolder, maxWidth, maxHeight, idx }) => {
 				</div>
 			</div>
 			<div className="folder-explorer-content">
-				{
-					file.files.map((f, i) => {
-						return <File key={i} file={f} />;
-					})
-				}
+				<FolderContent
+					dimensions={dimensions}
+					handleClick={handleClick}
+					files={file.files}
+					selected={selected}
+				/>
 			</div>
 			<div
 				className="folder-explorer-resize top-left"
